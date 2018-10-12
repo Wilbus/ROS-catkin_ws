@@ -1,0 +1,13 @@
+background_b: 255
+background_g: 86
+background_r: 200
+r: 200
+rosdistro: 'kinetic
+
+  '
+roslaunch:
+  uris: {host_william_z270_hd3__40329: 'http://william-Z270-HD3:40329/'}
+rosversion: '1.12.13
+
+  '
+run_id: 0e798410-cdb8-11e8-894c-c8d719c2fa93
