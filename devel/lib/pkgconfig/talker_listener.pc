@@ -3,6 +3,6 @@ prefix=/home/william/catkin_ws/devel
 Name: talker_listener
 Description: Description of talker_listener
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/william/catkin_ws/devel/include
 Libs: -L/home/william/catkin_ws/devel/lib 
 Requires: 

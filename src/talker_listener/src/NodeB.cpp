@@ -1,12 +1,17 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "std_msgs/Int64.h"
 
 /**
  * This tutorial demonstrates simple receipt of messages over the ROS system.
  */
-void chatterCallback(const std_msgs::String::ConstPtr& msg)
+void StringTopicCallback(const std_msgs::String::ConstPtr& msg)
 {
   ROS_INFO("I heard: [%s]", msg->data.c_str());
+}
+
+void Int64TopicCallback(const std_msgs::Int64::ConstPtr& msg)
+{
 }
 
 int main(int argc, char **argv)
@@ -21,7 +26,7 @@ int main(int argc, char **argv)
    * You must call one of the versions of ros::init() before using any other
    * part of the ROS system.
    */
-  ros::init(argc, argv, "listener");
+  ros::init(argc, argv, "NodeB");
 
   /**
    * NodeHandle is the main access point to communications with the ROS system.
@@ -45,7 +50,8 @@ int main(int argc, char **argv)
    * is the number of messages that will be buffered up before beginning to throw
    * away the oldest ones.
    */
-  ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);
+  ros::Subscriber sub1 = n.subscribe("String", 1000, StringTopicCallback);
+	ros::Subscriber sub2 = n.subscribe("Int64", 1000, Int64TopicCallback);
 
   /**
    * ros::spin() will enter a loop, pumping callbacks.  With this version, all

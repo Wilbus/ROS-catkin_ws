@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-
+#include "std_msgs/Int64.h"
 #include <sstream>
 
 /**
@@ -18,7 +18,7 @@ int main(int argc, char **argv)
    * You must call one of the versions of ros::init() before using any other
    * part of the ROS system.
    */
-  ros::init(argc, argv, "talker");
+  ros::init(argc, argv, "NodeA");
 
   /**
    * NodeHandle is the main access point to communications with the ROS system.
@@ -44,9 +44,10 @@ int main(int argc, char **argv)
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+  ros::Publisher string_pub = n.advertise<std_msgs::String>("String", 1000);
+	ros::Publisher int64_pub = n.advertise<std_msgs::Int64>("Int64", 1000);
 
-  ros::Rate loop_rate(10);
+  ros::Rate loop_rate(1);
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -58,13 +59,15 @@ int main(int argc, char **argv)
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
-    std_msgs::String msg;
+    std_msgs::String stringmsg;
+		std_msgs::Int64 integer64;
 
     std::stringstream ss;
     ss << "hello world " << count;
-    msg.data = ss.str();
+    stringmsg.data = ss.str();
 
-    ROS_INFO("%s", msg.data.c_str());
+    ROS_INFO("%s", stringmsg.data.c_str());
+		ROS_INFO("%n", &count);
 
     /**
      * The publish() function is how you send messages. The parameter
@@ -72,7 +75,7 @@ int main(int argc, char **argv)
      * given as a template parameter to the advertise<>() call, as was done
      * in the constructor above.
      */
-    chatter_pub.publish(msg);
+    string_pub.publish(stringmsg);
 
     ros::spinOnce();
 
