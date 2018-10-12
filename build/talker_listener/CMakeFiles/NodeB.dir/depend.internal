@@ -59,7 +59,10 @@ talker_listener/CMakeFiles/NodeB.dir/src/NodeB.cpp.o
  /opt/ros/kinetic/include/ros/wall_timer.h
  /opt/ros/kinetic/include/ros/wall_timer_options.h
  /opt/ros/kinetic/include/rosconsole/macros_generated.h
+ /opt/ros/kinetic/include/std_msgs/Float64MultiArray.h
  /opt/ros/kinetic/include/std_msgs/Int64.h
+ /opt/ros/kinetic/include/std_msgs/MultiArrayDimension.h
+ /opt/ros/kinetic/include/std_msgs/MultiArrayLayout.h
  /opt/ros/kinetic/include/std_msgs/String.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h

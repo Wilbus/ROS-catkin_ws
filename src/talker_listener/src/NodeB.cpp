@@ -1,57 +1,42 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "std_msgs/Int64.h"
+#include "std_msgs/Float64MultiArray.h"
+#include <vector>
 
-/**
- * This tutorial demonstrates simple receipt of messages over the ROS system.
- */
 void StringTopicCallback(const std_msgs::String::ConstPtr& msg)
 {
-  ROS_INFO("I heard: [%s]", msg->data.c_str());
+  ROS_INFO("I heard string: [%s]", msg->data.c_str());
 }
 
 void Int64TopicCallback(const std_msgs::Int64::ConstPtr& msg)
 {
+	ROS_INFO("I heard Int64: [%ld]", msg->data);
+}
+
+void Float64MultiArrayCallback(const std_msgs::Float64MultiArray::ConstPtr& msg)
+{
+	std::vector<double> array;
+	array = msg->data;
+	printf("I heard Float64MultiArray: ");
+	for(int i = 0; i < array.size(); i++)
+	{
+		printf("%.2f ", 2*array.at(i));
+	}
+	printf("\n");
 }
 
 int main(int argc, char **argv)
 {
-  /**
-   * The ros::init() function needs to see argc and argv so that it can perform
-   * any ROS arguments and name remapping that were provided at the command line.
-   * For programmatic remappings you can use a different version of init() which takes
-   * remappings directly, but for most command-line programs, passing argc and argv is
-   * the easiest way to do it.  The third argument to init() is the name of the node.
-   *
-   * You must call one of the versions of ros::init() before using any other
-   * part of the ROS system.
-   */
+  
   ros::init(argc, argv, "NodeB");
 
-  /**
-   * NodeHandle is the main access point to communications with the ROS system.
-   * The first NodeHandle constructed will fully initialize this node, and the last
-   * NodeHandle destructed will close down the node.
-   */
   ros::NodeHandle n;
 
-  /**
-   * The subscribe() call is how you tell ROS that you want to receive messages
-   * on a given topic.  This invokes a call to the ROS
-   * master node, which keeps a registry of who is publishing and who
-   * is subscribing.  Messages are passed to a callback function, here
-   * called chatterCallback.  subscribe() returns a Subscriber object that you
-   * must hold on to until you want to unsubscribe.  When all copies of the Subscriber
-   * object go out of scope, this callback will automatically be unsubscribed from
-   * this topic.
-   *
-   * The second parameter to the subscribe() function is the size of the message
-   * queue.  If messages are arriving faster than they are being processed, this
-   * is the number of messages that will be buffered up before beginning to throw
-   * away the oldest ones.
-   */
   ros::Subscriber sub1 = n.subscribe("String", 1000, StringTopicCallback);
 	ros::Subscriber sub2 = n.subscribe("Int64", 1000, Int64TopicCallback);
+	ros::Subscriber sub3 = n.
+subscribe("Float64MultiArray", 1000, Float64MultiArrayCallback);
 
   /**
    * ros::spin() will enter a loop, pumping callbacks.  With this version, all
